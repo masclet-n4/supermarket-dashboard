@@ -1,0 +1,12 @@
+services:
+  app:
+    build: .
+    image: supermarket-front
+    ports:
+      - "3100:3100"
+    environment:
+      PORT: "3100"
+      POCKETBASE_URL: "https://pb.jccantos.com"
+      POCKETBASE_ADMIN_EMAIL: "CAMBIAR"
+      POCKETBASE_ADMIN_PASSWORD: "CAMBIAR"
+    restart: unless-stopped

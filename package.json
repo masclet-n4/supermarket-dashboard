@@ -1,0 +1,13 @@
+{
+  "name": "supermarket-front",
+  "private": true,
+  "workspaces": ["server", "web"],
+  "scripts": {
+    "dev": "bun run --parallel --workspaces dev",
+    "build": "bun --filter web build",
+    "start": "bun --filter server start"
+  },
+  "dependencies": {
+    "pocketbase": "^0.28.2"
+  }
+}
