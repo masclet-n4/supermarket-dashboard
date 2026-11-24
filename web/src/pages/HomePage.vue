@@ -32,6 +32,7 @@
                <div class="font-bold text-h4">Últimos 30 días</div>
                <div class="relative flex w-4/6 rounded bg-gray-100">
                 <ButtonGroup
+                     :currentOption="trendTabs[selectedTab]"
                      :optionsList="trendTabs"
                      @onChangeOption="(selectedOption) => selectedTab = selectedOption"
                 />
@@ -39,7 +40,7 @@
 
                <div class="bg-accent-subtle rounded-lg flex flex-col gap-2 p-2">
                  <ProductCard
-                 v-for="product in selectedTrendProducts" :key="product.id"
+                 v-for="product in selectedTrendProducts" :key='`${product.id}-${selectedTab}`'
                  :product="product"/>
                </div>
            </div>
@@ -54,9 +55,10 @@ import ProductCardContent from "../components/ProductCardContent.vue"
 import { computed, ref } from 'vue'
 import { useHome } from "../api/useHome"
 import ButtonGroup from "../components/ButtonGroup.vue"
+import { TREND_TAB_OPTIONS } from '../enums/trends'
 
 const homeProducts = useHome()
-const trendTabs = ['Subidas', 'Bajadas', 'Cambios']
+const trendTabs = TREND_TAB_OPTIONS
 const selectedTab = ref(0)
 const trendProducts = [
   homeProducts.biggestIncreaseProducts,

@@ -1,9 +1,9 @@
 <template>
 <div v-if="!isChanges">
     <div :class="`${ getStyle() } flex gap-2 px-1 font-semibold rounded`">
-            <div v-if="metric === 'percent'">{{getSign()}}</div>
+            <div v-if="metric === TREND_METRIC.PERCENT">{{getSign()}}</div>
             <div> {{formatEs(num)}}</div>
-            <div v-if="metric === 'percent'"> %</div>
+            <div v-if="metric === TREND_METRIC.PERCENT"> %</div>
     </div>
 </div>
 <div v-else>
@@ -13,9 +13,10 @@
 
 <script setup lang="ts">
 import { formatEs } from '../format'
+import { TREND_METRIC, type TrendMetric } from '../enums/trends'
 const {num, metric, isChanges} = defineProps < {
   num: number,
-  metric: string | null,
+  metric: TrendMetric | null,
   isChanges: boolean
 }>()
 

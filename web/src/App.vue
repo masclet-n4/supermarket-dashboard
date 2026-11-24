@@ -3,6 +3,11 @@
   <main class="p-4 pb-20 md:p-8">
       <component :is="sectionPage"/>
   </main>
+  <!-- <div>
+      <div class="absolute w-full bottom-0 h-1/2 rounded-t-2xl bg-amber-200">
+          hola
+      </div>
+  </div> -->
 </template>
 
 <script setup lang="ts">

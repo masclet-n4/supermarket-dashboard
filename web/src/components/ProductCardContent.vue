@@ -14,9 +14,9 @@
         </div>
     </div>
     <div class="shrink-0 self-center flex-col">
-         <PrettyStat :num="statValue" :metric="statMetric" :isChanges="product.statType === 'CHANGE'"/>
+         <PrettyStat :num="statValue" :metric="statMetric" :isChanges="product.statType === TREND_STAT_TYPE.CHANGES"/>
         <div
-        v-if="product.statType && product.statType!== 'CHANGE'"
+        v-if="product.statType && product.statType !== TREND_STAT_TYPE.CHANGES"
         class="text-ink-muted text-center"
         >
           <PrettyDiff :num="altValue"  :metric="getAltMetric()" :quantityUnit="quantityUnit"/>
@@ -32,6 +32,7 @@ import PrettyStat from './PrettyStat.vue';
 import ProductImage from './ProductImage.vue';
 import SupermarketBadge from './SupermarketBadge.vue';
 import { formatEs } from '../format';
+import { TREND_METRIC, TREND_STAT_TYPE, type TrendMetric } from '../enums/trends';
 
 const {product} = defineProps < {
 product: any
@@ -50,9 +51,9 @@ const {
   quantityUnit
 } = product
 
-function getAltMetric() {
-  if (statMetric === "percent") return "absolute"
-  if (statMetric === "absolute") return "percent"
+function getAltMetric(): TrendMetric | null {
+  if (statMetric === TREND_METRIC.PERCENT) return TREND_METRIC.ABSOLUTE
+  if (statMetric === TREND_METRIC.ABSOLUTE) return TREND_METRIC.PERCENT
   return null
 }
 

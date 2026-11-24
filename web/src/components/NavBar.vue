@@ -15,15 +15,37 @@
         </div>
 
         <button
-          v-for="(section, index) in sections"
-          :key="section.code"
           type="button"
+          :class="current === 0 ? 'font-semibold text-accent' : 'text-secondary'"
           class="relative z-10 flex flex-col items-center justify-center px-2 py-2 md:px-4"
-          :class="index === current ? 'font-semibold text-accent' : 'text-secondary'"
-          @click="select(index)"
+          @click="select(0)"
         >
-          <img class="md:hidden" :src="section.img" :alt="section.text" />
-          {{ section.text }}
+          <svg class="md:hidden" width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+            <path transform="matrix(1 0 0 1 2.75 3.44)" d="M0 6.87L8.25 0L16.5 6.87L16.5 15.81L11 15.81L11 10.31L5.5 10.31L5.5 15.81L0 15.81L0 6.87Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          Inicio
+        </button>
+        <button
+          type="button"
+          :class="current === 1 ? 'font-semibold text-accent' : 'text-secondary'"
+          class="relative z-10 flex flex-col items-center justify-center px-2 py-2 md:px-4"
+          @click="select(1)"
+        >
+          <svg class="md:hidden" width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+            <path transform="matrix(1 0 0 1 2.06 6.19)" d="M0 10.31L5.5 4.81L9.63 8.25L17.19 0M12.38 0L17.19 0L17.19 4.81" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          Tendencias
+        </button>
+        <button
+          type="button"
+          :class="current === 2 ? 'font-semibold text-accent' : 'text-secondary'"
+          class="relative z-10 flex flex-col items-center justify-center px-2 py-2 md:px-4"
+          @click="select(2)"
+        >
+          <svg class="md:hidden" width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+            <path transform="matrix(1 0 0 1 2.75 5.5)" d="M4.81 0L16.5 0M4.81 5.5L16.5 5.5M4.81 11L16.5 11M0 0L0.69 0M0 5.5L0.69 5.5M0 11L0.69 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          Productos
         </button>
     </nav>
 </div>
@@ -32,23 +54,16 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import logo from '../assets/logo.svg'
-import HomeIcon from '../assets/HomeIcon.svg'
-import TrendsIcon from '../assets/TrendsIcon.svg'
-import ProductsIcon from '../assets/ProductsIcon.svg'
 import { SECTIONS, type Section } from '../types/sections'
 
 const emit = defineEmits<{ sectionChange: [section: Section] }>()
 
-const sections = [
-  { img: HomeIcon, text: 'Inicio', code: SECTIONS.HOME },
-  { img: TrendsIcon, text: 'Tendencias', code: SECTIONS.TRENDS },
-  { img: ProductsIcon, text: 'Productos', code: SECTIONS.PRODUCTS },
-]
+const sections = [SECTIONS.HOME, SECTIONS.TRENDS, SECTIONS.PRODUCTS]
 
 const current = ref(0)
 
 const select = (index: number) => {
   current.value = index
-  emit('sectionChange', sections[index].code)
+  emit('sectionChange', sections[index])
 }
 </script>
