@@ -1,13 +1,8 @@
 <template>
-<NavBar @section-change="handleSectionChange" />
-  <main class="p-4 pb-20 md:p-8">
-      <component :is="sectionPage"/>
+<NavBar :section="currentSection" @section-change="handleSectionChange" />
+  <main class="px-4 pt-12 pb-20 md:p-8">
+      <component :is="sectionPage" :q="searchQuery" @search="handleSearch"/>
   </main>
-  <!-- <div>
-      <div class="absolute w-full bottom-0 h-1/2 rounded-t-2xl bg-amber-200">
-          hola
-      </div>
-  </div> -->
 </template>
 
 <script setup lang="ts">
@@ -20,6 +15,7 @@ import TrendsPage from './pages/TrendsPage.vue';
 import { SECTIONS, type Section } from './types/sections';
 
 const currentSection = ref < Section > (SECTIONS.HOME)
+const searchQuery = ref('')
 
 const sectionPages = {
   [SECTIONS.HOME]: HomePage,
@@ -30,6 +26,12 @@ const sectionPages = {
 const sectionPage = computed(() =>  sectionPages[currentSection.value])
 
 const handleSectionChange = (section: Section) => {
+  searchQuery.value = ''
   currentSection.value = section
+}
+
+const handleSearch = (q: string) => {
+  searchQuery.value = q
+  currentSection.value = SECTIONS.PRODUCTS
 }
 </script>

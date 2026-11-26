@@ -1,11 +1,17 @@
 <template>
+<div class="fixed inset-y-0 z-50 flex w-full h-1/20 items-center border-b border-line bg-surface md:hidden">
+    <div class="flex gap-4 items-center p-2">
+        <img :src="logo" alt="Logo" />
+        <div class="font-bold">Supermarket Tracker</div>
+    </div>
+</div>
 <div class="fixed inset-x-0 bottom-0 z-50 flex w-full items-center border-t border-line bg-surface p-3 md:static md:border-t-0 md:border-b md:p-4">
-    <div class="flex gap-4 w-1/5 md:w-2/5 items-center font-semibold">
+    <div class="md:flex gap-4 w-1/5 md:w-2/5 items-center font-semibold hidden">
         <img :src="logo" alt="Logo" />
         <div class="hidden md:flex">Supermarket Tracker</div>
     </div>
 
-    <nav class="relative grid w-5/7 grid-cols-3 items-center">
+    <nav class="relative grid w-full grid-cols-3 items-center">
         <div
           aria-hidden="true"
           class="absolute inset-y-0 left-0 flex w-1/3 transition-transform duration-300"
@@ -52,18 +58,18 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed } from 'vue'
 import logo from '../assets/logo.svg'
 import { SECTIONS, type Section } from '../types/sections'
 
+const props = defineProps<{ section: Section }>()
 const emit = defineEmits<{ sectionChange: [section: Section] }>()
 
 const sections = [SECTIONS.HOME, SECTIONS.TRENDS, SECTIONS.PRODUCTS]
 
-const current = ref(0)
+const current = computed(() => sections.indexOf(props.section))
 
 const select = (index: number) => {
-  current.value = index
   emit('sectionChange', sections[index])
 }
 </script>

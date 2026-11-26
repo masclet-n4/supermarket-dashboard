@@ -15,9 +15,12 @@
                class="min-w-0 border-0 py-3 outline-none"
                type="search"
                placeholder="Aceite, huevos..."
+               v-model="query"
              />
 
-             <button type="button" class=" bg-accent text-accent-subtle px-4 py-3 rounded-md">Buscar</button>
+             <button @click="handleSearchProduct" type="button" class=" bg-accent text-accent-subtle px-4 py-3 rounded-md">
+                 Buscar
+             </button>
            </div>
     </div>
            <p v-if="homeProducts.error.value" class="text-down">No se pudieron cargar los datos.</p>
@@ -53,6 +56,8 @@ import SearchIcon from "../assets/SearchIcon.svg"
 import ProductCard from "../components/ProductCard.vue"
 import ProductCardContent from "../components/ProductCardContent.vue"
 import { computed, ref } from 'vue'
+const emit = defineEmits(['search'])
+const query = ref('')
 import { useHome } from "../api/useHome"
 import ButtonGroup from "../components/ButtonGroup.vue"
 import { TREND_TAB_OPTIONS } from '../enums/trends'
@@ -71,4 +76,9 @@ const selectedTrendProducts = computed(
     return trendProducts[selectedTab.value].value
   }
 )
+
+function handleSearchProduct() {
+  emit('search', query.value.trim())
+}
+
 </script>

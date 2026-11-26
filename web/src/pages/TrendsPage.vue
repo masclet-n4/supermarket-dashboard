@@ -23,7 +23,7 @@ function handleFiltersChange(newFilters: TrendFilters) {
 
 <template>
     <div class="p-2 flex flex-col gap-2">
-        <div class="text-h2 font-bold">Tendencias</div>
+        <div class="text-h1 font-bold">Tendencias</div>
         <div class="relative flex w-4/6 rounded bg-gray-100">
          <ButtonGroup
             :currentOption="selectedTab"
