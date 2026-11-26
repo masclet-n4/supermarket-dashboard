@@ -5,7 +5,7 @@ COPY server/package.json server/
 COPY web/package.json web/
 RUN bun install --frozen-lockfile
 COPY . .
-RUN bun run build
+RUN bun run build && bun build --target=bun --production --root . --outdir server/build ./server/src/index.ts
 
 FROM oven/bun:1
 WORKDIR /app
@@ -16,4 +16,4 @@ COPY --from=build /app/server ./server
 COPY --from=build /app/web/dist ./web/dist
 USER bun
 EXPOSE 3100
-CMD ["bun", "server/src/index.ts"]
+CMD ["bun", "server/build/server/src/index.js"]
