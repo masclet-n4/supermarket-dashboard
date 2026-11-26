@@ -14,6 +14,7 @@ COPY --from=build /app/node_modules ./node_modules
 COPY --from=build /app/package.json ./
 COPY --from=build /app/server ./server
 COPY --from=build /app/web/dist ./web/dist
+WORKDIR /app/server/build
 USER bun
 EXPOSE 3100
-CMD ["bun", "server/build/server/src/index.js"]
+CMD ["bun", "server/src/index.js"]
